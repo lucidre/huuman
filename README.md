@@ -1,8 +1,5 @@
 # HUUMAN: Unleash Your Creative Side!
 
-[![Watch the Video](https://img.youtube.com/vi/0fDbDzk3Z9A/0.jpg)](https://www.youtube.com/watch?v=0fDbDzk3Z9A)
- 
-
 ## Table of Contents
 - [Introduction](#introduction)
 - [Getting Started](#getting-started)
