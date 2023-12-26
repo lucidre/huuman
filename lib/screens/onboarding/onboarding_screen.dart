@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:focus_detector/focus_detector.dart';
 import 'package:huuman/common_libs.dart';
 import 'package:huuman/screens/onboarding/onboarding_animation.dart';
@@ -15,22 +13,21 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen>
     with TickerProviderStateMixin {
   late AnimationController controller;
-  late Animation<double> _animation;
+  late Animation<double> animation;
 
   @override
   void initState() {
     controller = AnimationController(duration: fastDuration, vsync: this);
 
-    _animation = Tween<double>(begin: 0.0, end: 1.0)
+    animation = Tween<double>(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
 
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         context.router.push(const HomeRoute());
 
-        Future.delayed(const Duration(seconds: 2), () {
-          controller.reverse();
-        });
+        //reverse the animation after the page change.
+        Future.delayed(const Duration(seconds: 2), () => controller.reverse());
       }
     });
 
@@ -51,7 +48,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     );
   }
 
-  FocusDetector buildBody() {
+  buildBody() {
     return FocusDetector(
       onFocusGained: () => Get.find<GeneralController>().initTimer(),
       onFocusLost: () => Get.find<GeneralController>().stopTimer(),
@@ -68,9 +65,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               buildTexts(),
               Expanded(
                   child: const Center(
-                          child: AppHero(
-                              tag: "huuman", child: OnboardingAnimation()))
-                      .fadeInAndMoveFromBottom()),
+                child: AppHero(
+                  tag: "huuman",
+                  child: OnboardingAnimation(),
+                ),
+              ).fadeInAndMoveFromBottom()),
               verticalSpacer24,
               buildButton(),
             ],
@@ -86,25 +85,22 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       child: InkWell(
         splashColor: Colors.transparent,
         focusColor: Colors.transparent,
-        onTap: () {
-          controller.forward();
-        },
+        onTap: () => controller.forward(),
         child: Container(
           height: 50,
           width: 200,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(cornersLarge),
-              color: primaryColor),
+            borderRadius: BorderRadius.circular(cornersLarge),
+            color: primaryColor,
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 'Get started',
                 style: poppins15w500.copyWith(
-                  color: backgroundColor,
-                  fontWeight: FontWeight.w500,
-                ),
+                    color: backgroundColor, fontWeight: FontWeight.w500),
               ),
               horizontalSpacer8,
               Icon(Icons.chevron_right_rounded, color: backgroundColor),
@@ -149,11 +145,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       ),
       builder: (context, child) {
         return Transform.scale(
-          scale: 1 + _animation.value,
+          scale: 1 + animation.value,
           child: Opacity(
-            opacity: min(1, _animation.value),
+            opacity: animation.value,
             child: PageReveal(
-                revealPercent: _animation.value,
+                revealPercent: animation.value,
                 child: child ?? const SizedBox()),
           ),
         );

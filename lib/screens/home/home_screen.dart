@@ -23,23 +23,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     _animation = Tween<double>(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
-
     _animation2 = Tween<double>(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(parent: controller2, curve: Curves.easeInOut));
 
     controller2.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         context.router.push(const DescriptionRoute());
-
-        Future.delayed(const Duration(seconds: 2), () {
-          controller2.reverse();
-        });
+        Future.delayed(const Duration(seconds: 2), () => controller2.reverse());
       }
     });
 
-    Future.delayed(Duration.zero, () {
-      controller.forward();
-    });
+    Future.delayed(Duration.zero, () => controller.forward());
 
     super.initState();
   }
@@ -117,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  SafeArea buildBody() {
+  buildBody() {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(kDefaultPadding),
@@ -146,10 +140,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Facilities',
-              style: poppins15w500.copyWith(fontWeight: FontWeight.bold),
-            ).fadeInAndMoveFromBottom(),
+            Text('Facilities',
+                    style: poppins15w500.copyWith(fontWeight: FontWeight.bold))
+                .fadeInAndMoveFromBottom(),
             verticalSpacer16,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -164,50 +157,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             verticalSpacer16,
             Row(
               children: [
-                Expanded(
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    onTap: () {
-                      controller2.forward();
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(space12),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: primaryColor, width: 2),
-                        color: backgroundColor,
-                        borderRadius: BorderRadius.circular(space16),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'See More',
-                            style: poppins15w500.copyWith(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          horizontalSpacer8,
-                          Icon(Icons.chevron_right_rounded,
-                              color: primaryColor),
-                        ],
-                      ).fadeInAndMoveFromBottom(delay: fastDuration),
-                    ),
-                  ),
-                ),
+                Expanded(child: buildSeeMore()),
                 horizontalSpacer12,
-                Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(space12),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: primaryColor, width: 2),
-                    color: backgroundColor,
-                    borderRadius: BorderRadius.circular(space16),
-                  ),
-                  child: Icon(Icons.message_outlined, color: primaryColor)
-                      .fadeInAndMoveFromBottom(delay: fastDuration),
-                ),
+                buildMessage(),
               ],
             ),
             //
@@ -215,14 +167,54 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ));
   }
 
+  Container buildMessage() {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(space12),
+      decoration: BoxDecoration(
+        border: Border.all(color: primaryColor, width: 2),
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(space16),
+      ),
+      child: Icon(Icons.message_outlined, color: primaryColor)
+          .fadeInAndMoveFromBottom(delay: fastDuration),
+    );
+  }
+
+  InkWell buildSeeMore() {
+    return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      onTap: () => controller2.forward(),
+      child: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(space12),
+        decoration: BoxDecoration(
+            border: Border.all(color: primaryColor, width: 2),
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(space16)),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('See More',
+                style: poppins15w500.copyWith(
+                  fontWeight: FontWeight.w600,
+                )),
+            horizontalSpacer8,
+            Icon(Icons.chevron_right_rounded, color: primaryColor),
+          ],
+        ).fadeInAndMoveFromBottom(delay: fastDuration),
+      ),
+    );
+  }
+
   Container buildItem1() {
     return Container(
         padding: const EdgeInsets.all(space24),
         decoration: BoxDecoration(
-          border: Border.all(color: primaryColor, width: 2),
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(space16),
-        ),
+            border: Border.all(color: primaryColor, width: 2),
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(space16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -242,11 +234,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: primaryColor.withOpacity(.2),
-                          spreadRadius: 4,
-                          blurRadius: 8,
-                          offset: const Offset(1, 1),
-                        ),
+                            color: primaryColor.withOpacity(.2),
+                            spreadRadius: 4,
+                            blurRadius: 8,
+                            offset: const Offset(1, 1)),
                       ]),
                   child: Icon(Icons.favorite_rounded, color: backgroundColor),
                 ).fadeInAndMoveFromBottom(delay: fastDuration)

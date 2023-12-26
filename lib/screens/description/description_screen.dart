@@ -22,9 +22,7 @@ class _DescriptionScreenState extends State<DescriptionScreen>
     _animation = Tween<double>(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
 
-    Future.delayed(Duration.zero, () {
-      controller.forward();
-    });
+    Future.delayed(Duration.zero, () => controller.forward());
 
     super.initState();
   }
@@ -127,14 +125,11 @@ class _DescriptionScreenState extends State<DescriptionScreen>
                   Container(
                     padding: const EdgeInsets.all(space16),
                     decoration: BoxDecoration(
-                      color: greyColor,
-                      borderRadius: BorderRadius.circular(space16),
-                    ),
+                        color: greyColor,
+                        borderRadius: BorderRadius.circular(space16)),
                     child: Row(
                       children: [
-                        Expanded(
-                          child: Text('Cost:', style: poppins16Bold),
-                        ),
+                        Expanded(child: Text('Cost:', style: poppins16Bold)),
                         Text('150\$ USD', style: poppins16Bold),
                       ],
                     ),
@@ -143,36 +138,7 @@ class _DescriptionScreenState extends State<DescriptionScreen>
                   Row(
                     children: [
                       Expanded(
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          onTap: () {
-                            context.router.push(const DescriptionRoute());
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.all(space12),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: primaryColor, width: 2),
-                              color: backgroundColor,
-                              borderRadius: BorderRadius.circular(space16),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Book Now',
-                                  style: poppins15w500.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                horizontalSpacer8,
-                                Icon(Icons.chevron_right_rounded,
-                                    color: primaryColor),
-                              ],
-                            ).fadeInAndMoveFromBottom(delay: fastDuration),
-                          ),
-                        ),
+                        child: buildBookNow(),
                       ),
                     ],
                   ),
@@ -184,6 +150,31 @@ class _DescriptionScreenState extends State<DescriptionScreen>
         ],
       ),
     ));
+  }
+
+  InkWell buildBookNow() {
+    return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      onTap: () {},
+      child: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(space12),
+        decoration: BoxDecoration(
+            border: Border.all(color: primaryColor, width: 2),
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(space16)),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Book Now',
+                style: poppins15w500.copyWith(fontWeight: FontWeight.w600)),
+            horizontalSpacer8,
+            Icon(Icons.chevron_right_rounded, color: primaryColor),
+          ],
+        ).fadeInAndMoveFromBottom(delay: fastDuration),
+      ),
+    );
   }
 
   Row buildTimeline() {

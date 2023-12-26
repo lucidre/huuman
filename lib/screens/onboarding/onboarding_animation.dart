@@ -78,11 +78,12 @@ class _OnboardingAnimationState extends State<OnboardingAnimation>
             ? huuman2
             : huuman3;
 
-    final image2 = nextPageIndex == 0
+//transistions not working as expected, hence it is commented out for now.
+    /*   final image2 = nextPageIndex == 0
         ? huuman2
         : nextPageIndex == 1
             ? huuman3
-            : huuman1;
+            : huuman1; */
 
     return Stack(
       children: <Widget>[
