@@ -7,7 +7,6 @@
 - [Introduction](#introduction)
 - [Getting Started](#getting-started)
 - [Usage](#usage) 
-- [License](#license)
 
 ## Introduction
 Welcome to HUUMAN, where creativity meets code! 🎨✨ It is basically a code implementation of a UI I found on Pinterest.
@@ -26,9 +25,3 @@ Check out this quick demo to see HUUMAN in action:
 
 [![Watch the Video](https://img.youtube.com/vi/0fDbDzk3Z9A/0.jpg)](https://www.youtube.com/watch?v=0fDbDzk3Z9A)
 
- 
-
-## License
-
-HUUMAN is released under the [MIT License](LICENSE). Feel free to use, modify, and distribute this project in your own work.
-Happy coding! 🚀✨
